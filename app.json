@@ -5,6 +5,32 @@
       "bundler": "metro"
     },
     "name": "yt-music-clone",
-    "slug": "yt-music-clone"
+    "slug": "yt-music-clone",
+    // "sdkVersion": "48.0.0",
+    "platforms": [
+      "android",
+      "web"
+    ],
+    "version": "0.5.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000"
+    },
+    "android": {
+      "package": "com.ytmusic.clone",
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "INTERNET"
+      ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "106be62a-a392-4023-bc25-9b01a82b5245"
+      }
+    }
   }
 }
