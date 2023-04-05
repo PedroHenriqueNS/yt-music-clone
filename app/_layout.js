@@ -3,10 +3,14 @@ import { useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { AudioProvider } from "../components/context/audioProvider";
+import { AudioController } from "../components/context/AudioController";
+import Player from "../components/player/Player";
+import { StatusBar } from "expo-status-bar";
 
 SplashScreen.preventAutoHideAsync()
 
 const Layout = () => {
+
 
     const [fontsLoaded] = useFonts({
         DMBold: require('../assets/fonts/DMSans-Bold.ttf'),
@@ -24,7 +28,11 @@ const Layout = () => {
 
     return (
         <AudioProvider>
-            <Stack onLayout={onLayoutRootView} />
+            <AudioController>
+                <StatusBar style="light" />
+                <Stack onLayout={onLayoutRootView} />
+                <Player />
+            </AudioController>
         </AudioProvider>
     )
 }

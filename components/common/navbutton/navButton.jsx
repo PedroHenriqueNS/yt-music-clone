@@ -6,6 +6,7 @@ import {
     LayoutAnimation,
 } from "react-native";
 import { NavButtonContext } from "../../context";
+import { AntDesign } from '@expo/vector-icons';
 
 import styles from './navButton.style'
 
@@ -18,18 +19,11 @@ if (
 
 const NavButton = ({ pageName, isPressed, item, isCloserButton }) => {
 
-    // const router = useRouter();
     const [btnPressed, setBtnPressed] = useState(isPressed || false)
 
     const changeNavButton = React.useContext(NavButtonContext)
 
     if (isCloserButton === false) {
-
-        // useEffect(() => {
-        //     if (animationComplete) {
-        //         router.push(`/${pageName}`)
-        //     }
-        // })
 
         const handlePress = () => {
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut,
@@ -63,7 +57,7 @@ const NavButton = ({ pageName, isPressed, item, isCloserButton }) => {
             </View>
         )
     } else {
-        
+
         const handlePress = () => {
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut,
                 // () => { setAnimationComplete(true) },
@@ -73,7 +67,7 @@ const NavButton = ({ pageName, isPressed, item, isCloserButton }) => {
             // setBtnPressed(!btnPressed)
 
         }
-        
+
         const handlePressOut = () => {
             LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut,
                 // () => { setAnimationComplete(true) },
@@ -90,7 +84,9 @@ const NavButton = ({ pageName, isPressed, item, isCloserButton }) => {
                     onPress={handlePress}
                     onPressOut={handlePressOut}
                 >
-                    <Text style={isPressed === false ? styles.closerText : styles.closerTextPressed}> X </Text>
+                    <Text style={isPressed === false ? styles.closerText : styles.closerTextPressed}>
+                        <AntDesign name="close" size={20} color="black" />
+                    </Text>
                 </TouchableOpacity>
             </View>
         )

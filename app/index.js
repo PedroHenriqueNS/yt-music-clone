@@ -1,11 +1,11 @@
-import { View, Text, SafeAreaView, FlatList, ScrollView, Alert } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import { View, Text, SafeAreaView, ScrollView, Button } from 'react-native';
+import { Stack } from 'expo-router';
 import React, { useContext } from 'react';
 
 import { COLORS, icons, images, SIZES, FONT } from '../constants'
-import { Albuns, Artistas, Musicas, Playlists, ScreenHeaderBtn, NavButton, Welcome, getAllMusicArchives } from '../components'
+import { Albuns, Artistas, Musicas, Playlists, NavButton, Welcome } from '../components'
 import { NavButtonContext } from '../components/context';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AudioContext } from '../components/context/audioProvider';
 
 const tabs = [
@@ -45,7 +45,7 @@ const Home = () => {
     const [tabSelected, setTabSelected] = useState(false)
 
     // Audio Provider, Every page that contains music details needs to have
-    const audioFiles = useContext(AudioContext)
+    // const audioFiles = useContext(AudioContext)
 
 
     const changeNavButtons = (tabx) => {
@@ -115,16 +115,6 @@ const Home = () => {
         return true
     }
 
-    const renderMusicInfos = () => {
-        return (
-            audioFiles.map((file) => (
-                <Text key={file.id} style={{ color: '#fff' }}>{file.filename}</Text>
-            ))
-        )
-    }
-
-    // console.log(audioFiles)
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#000' }}>
 
@@ -146,6 +136,7 @@ const Home = () => {
                 style={{
                     flex: 1,
                     padding: SIZES.medium,
+                    paddingEnd: 0
                 }}
             >
                 {/* NAV BUTTONS */}
@@ -166,12 +157,17 @@ const Home = () => {
 
 
                 {renderPage()}
-                <ScrollView>
-                    {/* {renderMusicInfos()} */}
-                </ScrollView>
+
+                {/* <Button style={{ padding: 10 }}
+                    title="Oi"
+                    color="#444"
+                    accessibilityLabel='Oi'
+                >
+                    <Text style={{color: '#fff'}}>OI</Text>
+                </Button> */}
 
             </View>
-            <Welcome />
+            {/* <Welcome /> */}
         </SafeAreaView>
     )
 }

@@ -1,6 +1,10 @@
-import * as MediaLibrary from 'expo-media-library'
-import React, { useState } from 'react';
+import * as MediaLibrary from 'expo-media-library';
+import * as FileSystem from 'expo-file-system';
+import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { DataProvider } from 'recyclerlistview';
+
+// import { MusicInfo } from 'expo-music-info';
 
 // -------------------CREATE-CONTEXT----------------------------
 
@@ -12,6 +16,11 @@ export const AudioProvider = (props) => {
 
     const [AudioFiles, setAudioFiles] = useState([])
     const [PermissionError, setPermissionError] = useState(false)
+    const [dataProvider, setDataProvider] = useState(new DataProvider((r1, r2) => { return r1 !== r2 }))
+
+    useEffect(() => {
+        getPermissions()
+    }, [])
 
     const permissionAlert = () => {
         Alert.alert('Permission required', 'This app needs to read audio files!', [{
@@ -25,15 +34,16 @@ export const AudioProvider = (props) => {
 
     const getAudioFiles = async () => {
         let media = await MediaLibrary.getAssetsAsync({
-            mediaType: "audio",
+            mediaType: MediaLibrary.MediaType.audio,
         })
         media = await MediaLibrary.getAssetsAsync({
-            mediaType: "audio",
+            mediaType: MediaLibrary.MediaType.audio,
             first: media.totalCount,
         })
-        if (media !== undefined) {
-            setAudioFiles(media.assets)
 
+        if (media !== undefined) {
+            setAudioFiles(AudioFiles, media.assets)
+            setDataProvider(dataProvider.cloneWithRows([...AudioFiles, ...media.assets]))
         }
 
         // if (media.totalCount > 0) {
@@ -82,8 +92,6 @@ export const AudioProvider = (props) => {
         }
     }
 
-    getPermissions()
-
     if (PermissionError) {
         return (
             <View style={styles.container}>
@@ -94,8 +102,9 @@ export const AudioProvider = (props) => {
     }
 
     return (
-        <AudioContext.Provider value={AudioFiles}>
-            {props.children}
+        <AudioContext.Provider value={{ AudioFiles, dataProvider }}>
+            {AudioFiles !== undefined ? props.children : <View />}
+            {/* {props.children} */}
         </AudioContext.Provider>
     )
 
@@ -128,6 +137,7 @@ export const AudioProvider = (props) => {
 //     "uri": "file:///storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Audio/AUD-20230210-WA0026.opus",
 //     "width": 0
 // }
+
 
 const styles = StyleSheet.create({
     container: {

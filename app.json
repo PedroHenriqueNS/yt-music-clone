@@ -4,9 +4,8 @@
     "web": {
       "bundler": "metro"
     },
-    "name": "yt-music-clone",
+    "name": "YT Music Clone",
     "slug": "yt-music-clone",
-    // "sdkVersion": "48.0.0",
     "platforms": [
       "android",
       "web"
@@ -17,7 +16,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000"
+      "backgroundColor": "#111"
     },
     "android": {
       "package": "com.ytmusic.clone",
