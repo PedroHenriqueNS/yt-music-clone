@@ -42,7 +42,7 @@ export const AudioProvider = (props) => {
         })
 
         if (media !== undefined) {
-            setAudioFiles(AudioFiles, media.assets)
+            setAudioFiles(media.assets)
             setDataProvider(dataProvider.cloneWithRows([...AudioFiles, ...media.assets]))
         }
 

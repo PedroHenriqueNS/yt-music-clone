@@ -31,9 +31,19 @@ const Player = () => {
 
                 if (height > 200 && isMaximized === false) {
                     setIsMaximized(true);
-                } else {
+                    return
+                }
+                if (height < (Dimensions.get('window').height - 200) && isMaximized === true) {
                     setIsMaximized(false);
                     setHeight(70);
+                    return
+                }
+
+                animate()
+                if (isMaximized) {
+                    setHeight(Dimensions.get('window').height);
+                } else {
+                    setHeight(70)
                 }
             },
         })
@@ -65,6 +75,8 @@ const Player = () => {
             genre: true,
             picture: true
         });
+
+        console.log(metadata)
 
         setMusicInfo(metadata)
         setMusicInfoChanged(true)

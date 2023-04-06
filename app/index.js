@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, Button } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 import { Stack } from 'expo-router';
 import React, { useContext } from 'react';
 
