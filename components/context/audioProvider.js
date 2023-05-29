@@ -1,10 +1,8 @@
 import * as MediaLibrary from 'expo-media-library';
-import * as FileSystem from 'expo-file-system';
 import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { DataProvider } from 'recyclerlistview';
 
-// import { MusicInfo } from 'expo-music-info';
+import { MusicInfo } from 'expo-music-info';
 
 // -------------------CREATE-CONTEXT----------------------------
 
@@ -16,7 +14,7 @@ export const AudioProvider = (props) => {
 
     const [AudioFiles, setAudioFiles] = useState([])
     const [PermissionError, setPermissionError] = useState(false)
-    const [dataProvider, setDataProvider] = useState(new DataProvider((r1, r2) => { return r1 !== r2 }))
+    const [SongsFindFinished, setSongsFindFinished] = useState(false)
 
     useEffect(() => {
         getPermissions()
@@ -43,7 +41,7 @@ export const AudioProvider = (props) => {
 
         if (media !== undefined) {
             setAudioFiles(media.assets)
-            setDataProvider(dataProvider.cloneWithRows([...AudioFiles, ...media.assets]))
+            setSongsFindFinished(true)
         }
 
         // if (media.totalCount > 0) {
@@ -102,7 +100,7 @@ export const AudioProvider = (props) => {
     }
 
     return (
-        <AudioContext.Provider value={{ AudioFiles, dataProvider }}>
+        <AudioContext.Provider value={{ AudioFiles, SongsFindFinished }}>
             {AudioFiles !== undefined ? props.children : <View />}
             {/* {props.children} */}
         </AudioContext.Provider>

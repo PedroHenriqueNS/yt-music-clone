@@ -23,13 +23,22 @@
       "permissions": [
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
-        "INTERNET"
+        "INTERNET",
+        "RECEIVE_BOOT_COMPLETED",
+        "WAKE_LOCK"
       ]
     },
     "extra": {
       "eas": {
         "projectId": "106be62a-a392-4023-bc25-9b01a82b5245"
       }
-    }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/106be62a-a392-4023-bc25-9b01a82b5245"
+    },
+    "ios": {}
   }
 }

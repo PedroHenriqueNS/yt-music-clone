@@ -76,8 +76,6 @@ const Player = () => {
             picture: true
         });
 
-        console.log(metadata)
-
         setMusicInfo(metadata)
         setMusicInfoChanged(true)
     }

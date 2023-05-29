@@ -1,0 +1,15 @@
+diff --git a/node_modules/expo-music-info/package.json b/node_modules/expo-music-info/package.json
+index 957fbea..6bcb3cd 100644
+--- a/node_modules/expo-music-info/package.json
++++ b/node_modules/expo-music-info/package.json
+@@ -9,8 +9,8 @@
+     "url": "git+ssh://git@github.com/antoninastefanowska/expo-music-info.git"
+   },
+   "dependencies": {
+-    "base-64": "^0.1.0",
+-    "expo-file-system": "~8.1.0"
++    "base-64": "^1.0.0",
++    "expo-file-system": "~15.2.2"
+   },
+   "keywords": [
+     "react-native",

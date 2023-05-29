@@ -1,5 +1,10 @@
 import react, { useEffect } from "react";
-import { Audio } from 'expo-av';
+import {
+    Audio,
+    InterruptionModeAndroid,
+    InterruptionModeIOS,
+    ResizeMode,
+} from 'expo-av';
 import { useState } from 'react';
 
 export const AudioControllerContext = react.createContext()
@@ -14,9 +19,18 @@ export const AudioController = (props) => {
 
     useEffect(() => {
         Playback.setOnPlaybackStatusUpdate(_onPlaybackStatusUpdate)
+        Audio.setAudioModeAsync({
+            allowsRecordingIOS: false,
+            staysActiveInBackground: true,
+            interruptionModeIOS: InterruptionModeIOS.DoNotMix,
+            playsInSilentModeIOS: true,
+            shouldDuckAndroid: true,
+            interruptionModeAndroid: InterruptionModeAndroid.DoNotMix,
+            playThroughEarpieceAndroid: false
+        })
     }, [])
 
-    const _onPlaybackStatusUpdate = playbackStatus => {
+    const _onPlaybackStatusUpdate = async playbackStatus => {
         if (!playbackStatus.isLoaded) {
             // Update your UI for the unloaded state
 
@@ -29,14 +43,17 @@ export const AudioController = (props) => {
 
             if (playbackStatus.didJustFinish && !playbackStatus.isLooping) {
                 // The player has just finished playing and will stop.
-                const status = Playback.stopAsync()
+                const status = await Playback.stopAsync()
                 setMusicStatus(status)
             }
 
             if (playbackStatus.didJustFinish && playbackStatus.isLooping) {
                 // The player has just finished playing and will play next music.
 
-                const status = Playback.unloadAsync()
+                await Playback.stopAsync()
+
+                // Must be changed to play next music in playlist
+                const status = await Playback.unloadAsync()
                 setMusicStatus(status)
 
                 // TODO: Call next music
@@ -72,12 +89,16 @@ export const AudioController = (props) => {
 
         // Play audio for the first time
         if (MusicStatus === null) {
-            const status = await Playback.loadAsync(
+            console.log("teste")
+            let status = await Playback.loadAsync(
                 { uri: audio.uri },
                 { shouldPlay: true },
-                { rate: 1.0 }
+                { rate: 1.0 },
+                { volume: 1.0 }
             )
+            console.log(status)
             setMusicStatus(status)
+            console.log(MusicStatus)
             setSelectedAudio(audio)
         }
         // TODO: The audio won't stop here, it's just to understand
